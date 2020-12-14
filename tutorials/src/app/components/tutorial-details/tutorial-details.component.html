@@ -25,6 +25,10 @@
     <div class="form-group">
       <label><strong>Status:</strong></label>
       {{ currentTutorial.published ? "Published" : "Pending" }}
+      <br>
+      <label><strong>Publisher:</strong></label>
+      {{currentTutorial.author}}
+      
     </div>
   </form>
 
@@ -50,7 +54,14 @@
   <button type="submit" class="badge badge-success" (click)="updateTutorial()">
     Update
   </button>
+
+  <button class="badge badge-danger mr-2" (click)="archiveTutorial()">
+    Archive
+  </button>
+  
   <p>{{ message }}</p>
+ 
+
 </div>
 
 <div *ngIf="!currentTutorial">

@@ -14,7 +14,7 @@ import {FormControl} from '@angular/forms'
 })
 export class LoginComponent implements OnInit {
 
-
+  title = 'Login';
   form: FormGroup 
 
   isLoggedIn = false;
@@ -42,11 +42,10 @@ user:User = new User
 
 
  login(): void{
-   console.log(this.form.value)
+  
    this.authService.login(this.form.controls['email'].value, this.form.controls['password'].value).then(() => {
      console.log('Loged in!');
-     console.log(this.form)
-     this.router.navigateByUrl("/")
+     this.router.navigateByUrl("/tutorials")
     
    });
    

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { TutorialService } from '../../services/tutorial.service';
 import Tutorial from '../../models/tutorial';
+import { User } from 'firebase';
+import { AngularFireAuth } from  "@angular/fire/auth";
 
 @Component({
   selector: 'app-tutorial-details',
@@ -13,8 +15,21 @@ export class TutorialDetailsComponent implements OnInit, OnChanges {
   @Output() refreshList: EventEmitter<any> = new EventEmitter();
   currentTutorial: Tutorial = null;
   message = '';
+  publisher: User
+  archived = false;
+  
 
-  constructor(private tutorialService: TutorialService) { }
+  constructor(private tutorialService: TutorialService,public  afAuth: AngularFireAuth) { 
+    
+    this.afAuth.authState.subscribe(user => {
+      if (user){
+        this.publisher = user;
+        localStorage.getItem('user');
+      } else {
+        return;
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.message = '';
@@ -26,9 +41,10 @@ export class TutorialDetailsComponent implements OnInit, OnChanges {
   }
 
   updatePublished(status): void {
-    this.tutorialService.update(this.currentTutorial.key, { published: status })
+    this.tutorialService.update(this.currentTutorial.key, { published: status ,author: this.publisher.email })
       .then(() => {
         this.currentTutorial.published = status;
+        this.currentTutorial.author = this.publisher.email;
         this.message = 'The status was updated successfully!';
       })
       .catch(err => console.log(err));
@@ -50,6 +66,16 @@ export class TutorialDetailsComponent implements OnInit, OnChanges {
       .then(() => {
         this.refreshList.emit();
         this.message = 'The tutorial was updated successfully!';
+      })
+      .catch(err => console.log(err));
+  }
+
+  
+  archiveTutorial(): void {
+    this.tutorialService.update(this.currentTutorial.key, { archived: true })
+      .then(() => {
+        
+        this.message = 'The tutorial was archived successfully!';
       })
       .catch(err => console.log(err));
   }

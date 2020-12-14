@@ -1,8 +1,9 @@
 <div>
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Softuni exam</a>
+    <a href="#" class="navbar-brand">Softuni exam, Welcome</a>
     <div class="navbar-nav mr-auto">
       <li class="nav-item">
+        
         <a routerLink="tutorials" class="nav-link">Tutorials</a>
       </li>
     
@@ -20,7 +21,7 @@
         <a routerLink="login" class="nav-link">Login</a>
       </li>
       <li class="nav-item">
-        <a routerLink="logout" class="nav-link">Logout</a>
+        <button (click)="logout()" class="btn btn-success" routerLink="login">Logout</button>
       </li>
     </div>
   </nav>

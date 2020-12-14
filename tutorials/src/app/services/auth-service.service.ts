@@ -25,7 +25,7 @@ export class AuthServiceService {
 
    async login(email: string, password: string) {
     const result = await this.afAuth.signInWithEmailAndPassword(email, password)
-    this.router.navigate(['tutorials-list']);
+    this.router.navigate(['tutorials']);
    
     
 
@@ -40,7 +40,7 @@ export class AuthServiceService {
 async logout(){
   await this.afAuth.signOut();
   localStorage.removeItem('user');
-  this.router.navigate(['tutorials-list']);
+  this.router.navigate(['tutorials']);
 
 }
 
