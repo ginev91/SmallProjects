@@ -5,6 +5,7 @@ import { AddTutorialComponent } from './components/add-tutorial/add-tutorial.com
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { ArchivedComponent } from './components/archived/archived.component';
+import { MyTutorialsComponent } from './components/my-tutorials/my-tutorials.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'tutorials', pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'archived', component: ArchivedComponent },
+  { path: 'my-tutorials', component: MyTutorialsComponent },
   { path: 'logout', redirectTo: 'tutorials', pathMatch: 'full' }
 ];
 

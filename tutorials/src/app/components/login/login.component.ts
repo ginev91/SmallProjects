@@ -17,13 +17,13 @@ export class LoginComponent implements OnInit {
   title = 'Login';
   form: FormGroup 
 
-  isLoggedIn = false;
+  isLoggedIn = true;
   iSubmitted  = false;
-user:User = new User
+  user:User = new User
  
   constructor(private authService: AuthServiceService, private router: Router, private formBuilder: FormBuilder ) { 
     
-    
+   
   }
 
   ngOnInit(): void {
@@ -32,22 +32,27 @@ user:User = new User
       email: [''],
       password: ['']
       
+      
   });
- 
+  this.isLoggedIn;
   
-
   }
 
   get formControl() { return this.form.controls; }
 
 
- login(): void{
-  
+
+ login(){
    this.authService.login(this.form.controls['email'].value, this.form.controls['password'].value).then(() => {
+    
+     console.log(this.isLoggedIn)
      console.log('Loged in!');
      this.router.navigateByUrl("/tutorials")
+     
     
    });
+  
+ 
    
  }
 }

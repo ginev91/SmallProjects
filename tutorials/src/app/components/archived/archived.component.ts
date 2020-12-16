@@ -13,6 +13,7 @@ export class ArchivedComponent implements OnInit {
   currentTutorial = null;
   currentIndex = -1;
   title = '';
+  arc = true;
 
   constructor(private tutorialService: TutorialService) { }
 
@@ -34,13 +35,22 @@ export class ArchivedComponent implements OnInit {
         )
       )
     ).subscribe(data => {
+  
       this.tutorials = data;
+
+      data = data.filter(arc => arc.archived = "true")
+      console.log(data)
+      
     });
+    
   }
 
   setActiveTutorial(tutorial, index): void {
+    
     this.currentTutorial = tutorial;
+  
     this.currentIndex = index;
+    console.log(tutorial,index)
   }
 
   removeAllTutorials(): void {
