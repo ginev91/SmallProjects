@@ -3,6 +3,8 @@ import { TutorialService } from '../../services/tutorial.service';
 import Tutorial  from '../../models/tutorial';
 import { User } from 'firebase';
 import { AngularFireAuth } from  "@angular/fire/auth";
+import { AuthServiceService } from '../../services/auth-service.service'
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-add-tutorial',
   templateUrl: './add-tutorial.component.html',
@@ -15,7 +17,9 @@ export class AddTutorialComponent implements OnInit {
   tutorial: Tutorial = new Tutorial();
   submitted = false;
   archived = false;
-  constructor(private tutorialService: TutorialService ) { 
+  
+ 
+  constructor(private tutorialService: TutorialService , private authService: AuthServiceService, private router: Router) { 
     
   }
 
@@ -23,10 +27,12 @@ export class AddTutorialComponent implements OnInit {
   }
 
   saveTutorial(): void {
+    this.submitted = false;
+    this.archived = false;
+    this.tutorial.author = this.authService.user.email
     this.tutorialService.create(this.tutorial).then(() => {
       console.log('Created new item successfully!');
-      this.submitted = false;
-      this.archived = false;
+      this.router.navigateByUrl("/my-tutorials")
   
       
     });
@@ -35,9 +41,9 @@ export class AddTutorialComponent implements OnInit {
   newTutorial(): void {
     this.submitted = false;
     this.archived = false;
+    this.tutorial.author = this.authService.user.email
     this.tutorial = new Tutorial();
-    console.log(this.tutorial)
-    
+    this.router.navigateByUrl("/my-tutorials")
     
   }
 }

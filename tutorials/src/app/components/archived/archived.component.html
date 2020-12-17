@@ -1,11 +1,11 @@
 <div class="list row">
   <div class="col-md-6">
-    <h4>Tutorials List</h4>
+    <h4> Archived List</h4>
 
-    <ul class="list-group">
-      <li
+    <ul  class="list-group">
+      <li 
         class="list-group-item"
-        *ngFor="let tutorial of tutorials; let i = index"
+        *ngFor="let tutorial of tutorialsArc; let i = index"
         [class.active]="i == currentIndex"
         (click)="setActiveTutorial(tutorial, i)"
       >

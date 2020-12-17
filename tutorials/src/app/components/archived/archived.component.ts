@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TutorialService } from '../../services/tutorial.service';
+import { ArchiveService } from '../../services/archive.service';
 import { map } from 'rxjs/operators';
+import { AuthServiceService } from '../../services/auth-service.service'
+
+
 
 @Component({
   selector: 'app-archived',
@@ -10,12 +14,13 @@ import { map } from 'rxjs/operators';
 export class ArchivedComponent implements OnInit {
 
   tutorials: any;
-  currentTutorial = null;
+  tutorialsArc: any;
+  currentTutorial: TutorialService;
   currentIndex = -1;
   title = '';
-  arc = true;
+  arc: "";
 
-  constructor(private tutorialService: TutorialService) { }
+  constructor(private tutorialService: TutorialService, private arcService: ArchiveService ,private authService: AuthServiceService) { }
 
   ngOnInit(): void {
     this.retrieveTutorials();
@@ -28,29 +33,31 @@ export class ArchivedComponent implements OnInit {
   }
 
   retrieveTutorials(): void {
-    this.tutorialService.getAll().snapshotChanges().pipe(
+    this.arcService.getAll().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ key: c.payload.key, ...c.payload.val() })
-        )
+        ).filter(el => el.archived)
       )
     ).subscribe(data => {
   
-      this.tutorials = data;
-
-      data = data.filter(arc => arc.archived = "true")
-      console.log(data)
-      
-    });
+     
+    
+     this.tutorialsArc = data
+    
+          
+        
+      });
     
   }
 
   setActiveTutorial(tutorial, index): void {
     
     this.currentTutorial = tutorial;
+    
   
     this.currentIndex = index;
-    console.log(tutorial,index)
+    
   }
 
   removeAllTutorials(): void {
