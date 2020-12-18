@@ -2,6 +2,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "target": "es6",
     "module": "commonjs",
     "outDir": "./out-tsc/app",
