@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   isLoggedIn = true;
   iSubmitted  = false;
   user:User = new User
+  message = '';
  
   constructor(private authService: AuthServiceService, private router: Router, private formBuilder: FormBuilder ) { 
     
@@ -44,16 +45,19 @@ export class LoginComponent implements OnInit {
 
  login(){
    this.authService.login(this.form.controls['email'].value, this.form.controls['password'].value).then(() => {
-    
-     console.log(this.isLoggedIn)
+
+     this.message = 'You logged in successfully!';
      console.log('Loged in!');
+     console.log(this.authService.isLoggedIn)
      this.router.navigateByUrl("/tutorials")
-     
     
-   });
-  
- 
+   }).catch((err) =>{
+      this.message = `You failed to login!!!
+      ${err}`;
    
- }
+     })
+   };
+  
+
 }
 

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from '../../services/auth-service.service'
 import  User  from  '../../models/user'
-import { FormBuilder, FormGroup ,Validators} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import {FormControl} from '@angular/forms'
+
 
 
 
@@ -19,6 +19,7 @@ title = 'Register';
 
   isLoggedIn = false;
   iSubmitted  = false;
+  message = '';
 user:User = new User
  
   constructor(private authService: AuthServiceService, private router: Router, private formBuilder: FormBuilder ) { 
@@ -48,9 +49,17 @@ user:User = new User
      
      this.router.navigateByUrl("/login")
     
-   });
-   
- }
+   }).catch((err) =>{
+
+ 
+         
+    this.message = `You failed to register!!!
+    ${err}`;
+ 
+   })
+ };
+
+
 }
 
 

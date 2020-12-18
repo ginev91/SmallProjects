@@ -3,6 +3,6 @@ export default class Tutorial {
   title: string;
   description: string;
   published: string;
-  archived: boolean;
+  archived: string;
   author: string
 }

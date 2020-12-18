@@ -4,6 +4,8 @@ import { Router } from '@angular/router'
 import {User} from 'firebase'
 
 
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,25 +14,23 @@ import {User} from 'firebase'
 export class AppComponent {
   title = 'Tutorials';
  
- isLoggedIn:boolean;
  user: User; 
 
-  constructor(private authService: AuthServiceService, private router: Router){
-   if(this.authService.user = undefined){
-     this.isLoggedIn = false;
-   }else{
-     this.isLoggedIn = true;
-   }
+
+  constructor(public authService: AuthServiceService, private router: Router){
   }
  
-
+  tutorials: any;
+  currentTutorial = null;
+  currentIndex = -1;
+  
 
   logout(): void{
     this.authService.logout().then(() => {
       console.log('Logged Out!');
-      this.isLoggedIn = false;
       this.router.navigateByUrl("/login")
-      console.log(this.isLoggedIn)
+      this.authService.isLoggedIn
+     
      
     });
     

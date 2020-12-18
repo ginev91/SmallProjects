@@ -18,6 +18,10 @@ import { RegisterComponent } from './components/register/register.component';
 import { ArchivedComponent } from './components/archived/archived.component';
 import { MyTutorialsComponent } from './components/my-tutorials/my-tutorials.component';
 
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,8 +32,11 @@ import { MyTutorialsComponent } from './components/my-tutorials/my-tutorials.com
     RegisterComponent,
     ArchivedComponent,
     MyTutorialsComponent
+    
+   
   ],
   imports: [
+  
     CommonModule,
     BrowserModule,
     AppRoutingModule,

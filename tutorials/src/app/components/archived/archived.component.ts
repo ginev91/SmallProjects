@@ -19,6 +19,7 @@ export class ArchivedComponent implements OnInit {
   currentIndex = -1;
   title = '';
   arc: "";
+  searchByTitles = '';
 
   constructor(private tutorialService: TutorialService, private arcService: ArchiveService ,private authService: AuthServiceService) { }
 
@@ -40,13 +41,7 @@ export class ArchivedComponent implements OnInit {
         ).filter(el => el.archived)
       )
     ).subscribe(data => {
-  
-     
-    
-     this.tutorialsArc = data
-    
-          
-        
+     this.tutorialsArc = data      
       });
     
   }
@@ -64,5 +59,19 @@ export class ArchivedComponent implements OnInit {
     this.tutorialService.deleteAll()
       .then(() => this.refreshList())
       .catch(err => console.log(err));
+  }
+
+  search(): void {
+    this.arcService.getAll().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        ).filter(el => el.archived).filter(el => el.title.includes(this.searchByTitles) || el.description.includes(this.searchByTitles))
+      )
+    ).subscribe(data => {
+      this.tutorialsArc = data;
+     
+      
+    })
   }
 }

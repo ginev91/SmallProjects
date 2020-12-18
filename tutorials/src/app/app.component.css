@@ -2,3 +2,12 @@
   text-align: center;
   margin: 25px auto;
 }
+
+
+.nav-item{
+  padding:2px;
+  margin-left: 7px;
+}
+.topnav-right {
+  float: right;
+}

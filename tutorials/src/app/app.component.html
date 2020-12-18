@@ -1,31 +1,39 @@
 <div>
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Softuni exam, Welcome</a>
+ 
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+    
+    <div class="topnav-right">
     <div class="navbar-nav mr-auto">
-      <li class="nav-item">
-        
+      <li class="nav-item"> 
         <a routerLink="tutorials" class="nav-link">Tutorials</a>
       </li>
-    
     <li class="nav-item">
       <a routerLink="archived" class="nav-link">Archived</a>
     </li>
     <li class="nav-item">
       <a routerLink="my-tutorials" class="nav-link">My Tutorials</a>
     </li>
-      <li *ngIf="isLoggedIn"class="nav-item">
-        <a routerLink="add" class="nav-link">Add</a>
+      <li class="nav-item">
+        <a *ngIf="authService.isLoggedIn" routerLink="add" class="nav-link">Add</a>
       </li>
       <li class="nav-item">
-        <a routerLink="register" class="nav-link">Register</a>
+        <a *ngIf="!authService.isLoggedIn" routerLink="register" class="nav-link">Register</a>
       </li>
       <li class="nav-item">
-        <a routerLink="login" class="nav-link">Login</a>
+        <a *ngIf="!authService.isLoggedIn" routerLink="login" class="nav-link">Login</a>
       </li>
       <li class="nav-item">
-        <button (click)="logout()" class="btn btn-success" routerLink="login">Logout</button>
+        <button *ngIf="authService.isLoggedIn" (click)="logout()" class="btn btn-success" routerLink="login">Logout</button>
       </li>
     </div>
+    </div>
+
+    <div>
+      <a *ngIf="authService.isLoggedIn" routerLink="tutorials" class="navbar-brand">Thank you for using the app</a>
+      <a *ngIf="!authService.isLoggedIn" routerLink="tutorials" class="navbar-brand"> Please register in order to use the full pottential of the app.</a>
+  </div>
+
+    
   </nav>
 
   <div class="container mt-3">

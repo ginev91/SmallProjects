@@ -3,6 +3,7 @@ import { TutorialService } from '../../services/tutorial.service';
 import Tutorial from '../../models/tutorial';
 import { User } from 'firebase';
 import { AngularFireAuth } from  "@angular/fire/auth";
+import { AuthServiceService } from '../../services/auth-service.service'
 
 @Component({
   selector: 'app-tutorial-details',
@@ -17,9 +18,10 @@ export class TutorialDetailsComponent implements OnInit, OnChanges {
   message = '';
   publisher: User
   archived = false;
+  pending: boolean
   
 
-  constructor(private tutorialService: TutorialService,public  afAuth: AngularFireAuth) { 
+  constructor(private tutorialService: TutorialService,public  afAuth: AngularFireAuth, private authService: AuthServiceService) { 
     
     this.afAuth.authState.subscribe(user => {
       if (user){
@@ -44,7 +46,7 @@ export class TutorialDetailsComponent implements OnInit, OnChanges {
     this.tutorialService.update(this.currentTutorial.key, { published: status ,author: this.publisher.email })
       .then(() => {
         this.currentTutorial.published = status;
-        this.currentTutorial.author = this.publisher.email;
+        this.pending = status;
         this.message = 'The status was updated successfully!';
       })
       .catch(err => console.log(err));
@@ -71,11 +73,16 @@ export class TutorialDetailsComponent implements OnInit, OnChanges {
   }
 
   
-  archiveTutorial(): void {
-    this.tutorialService.update(this.currentTutorial.key, { archived: true })
+  archiveTutorial(status): void {
+    this.tutorialService.update(this.currentTutorial.key, { archived: status })
       .then(() => {
         
+        this.currentTutorial.archived = status;
+       
+        this.currentTutorial.author = this.authService.user.email;
         this.message = 'The tutorial was archived successfully!';
+        status = false
+        this.currentTutorial.published = status
       })
       .catch(err => console.log(err));
   }
