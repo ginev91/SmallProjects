@@ -29,8 +29,8 @@
     </div>
 
     <div>
-      <a *ngIf="authService.isLoggedIn" routerLink="tutorials" class="navbar-brand">Thank you for using the app</a>
       <a *ngIf="!authService.isLoggedIn" routerLink="tutorials" class="navbar-brand"> Please register in order to use the full pottential of the app.</a>
+      <a *ngIf="authService.isLoggedIn" routerLink="tutorials" class="navbar-brand"> Hello, {{authService.user.email}}.</a>
   </div>
 
     

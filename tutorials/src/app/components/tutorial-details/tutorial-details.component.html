@@ -16,7 +16,7 @@
       <input
       
         type="text"
-        class="form-control"
+        class="form-control descriptionfield"
         id="description"
         [(ngModel)]="currentTutorial.description"
         name="description"
@@ -26,16 +26,20 @@
       />
     </div>
 
-    <div  *ngIf = "currentTutorial.published"class="form-group">
+    <div  *ngIf = "currentTutorial.published">
+      <div class="form-group">
       <label for="description">Description</label>
+    
       <input
+         type="text"
+          class="descriptionfield form-control"
+          id="description"
+          [(ngModel)]="currentTutorial.description"
+          name="description"
         
-        type="text"
-        class="form-control"
-        id="description"
-        [(ngModel)]="currentTutorial.description"
-        name="description"
-      />
+        />
+      </div>
+      
     </div>
 
     <div class="form-group">
@@ -47,8 +51,8 @@
       
     </div>
   </form>
-<div *ngIf = "currentTutorial.author == authService.user.email">
-  <div *ngIf="currentTutorial.archived == false">
+<div *ngIf = "currentTutorial.author == authService.user.email || currentTutorial.archived == false">
+ 
   <button
     class="badge badge-primary mr-2"
     *ngIf="currentTutorial.published"
@@ -63,7 +67,7 @@
   >
     Publish 
   </button>
-</div>
+
 <div *ngIf="currentTutorial.author == authService.user.email">
   <button class="badge badge-danger mr-2" (click)="deleteTutorial()">
     Delete

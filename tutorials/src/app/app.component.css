@@ -9,5 +9,6 @@
   margin-left: 7px;
 }
 .topnav-right {
-  float: right;
+  position:relative; 
+  left:1200px; top:5px;
 }
